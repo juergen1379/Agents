@@ -1,0 +1,31 @@
+[project]
+name = "druckcheck"
+version = "0.1.0"
+description = "Automatische Druckdaten-Prüfung (technische Prüf-Engine)"
+requires-python = ">=3.11"
+dependencies = [
+    "pikepdf>=9.0",
+    "pymupdf>=1.24",
+    "numpy>=1.26",
+    "pillow>=10.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+druckcheck = "druckcheck.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["druckcheck*"]
+
+[tool.setuptools.package-data]
+druckcheck = ["products.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

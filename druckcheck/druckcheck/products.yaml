@@ -1,0 +1,133 @@
+# DruckCheck – Produktkonfiguration
+#
+# Alle Maße beziehen sich auf das ENDFORMAT (fertig geschnittenes Produkt).
+#
+#   trim_mm            Endformat [Breite, Höhe] in mm (Hoch- oder Querformat werden beide akzeptiert)
+#   bleed_mm           geforderte Beschnittzugabe je Seite in mm
+#   safety_mm          Sicherheitsabstand vom Endformatrand nach innen, in mm.
+#                      Zahl (alle Seiten gleich) oder {top, right, bottom, left}
+#   min_dpi            unterhalb: rot (Bild wirkt sichtbar unscharf/pixelig)
+#   target_dpi         unterhalb: gelb (noch akzeptabel), ab hier: grün
+#   viewing_distance_m typische Betrachtungsdistanz (für Lesbarkeit, Prüfung Teil 2)
+#   max_tac            maximaler Gesamtfarbauftrag in % (C+M+Y+K)
+#   max_pages          maximale Seitenzahl (z. B. Vorder- und Rückseite = 2)
+#   allowed_scales     zulässige Maßstäbe der Druckdaten (1 = 1:1, 0.1 = 1:10)
+#
+# HINWEIS: Die Werte orientieren sich an gängigen Vorgaben deutscher Online-Druckereien.
+# Bitte vor dem Livegang mit den Datenblättern der Zieldruckereien abgleichen.
+
+defaults:
+  tolerance_mm: 0.5          # Toleranz für Format- und Beschnittvergleich
+  hairline_pt: 0.25          # dünnere Linien gelten als Haarlinie
+  hairline_red_pt: 0.1       # noch dünner (oder 0 = "dünnstmöglich"): rot
+  rgb_policy: warn           # warn = gelb, error = rot
+  spot_policy: warn          # Sonderfarben: warn = gelb, error = rot
+
+products:
+  visitenkarte:
+    name: "Visitenkarte 85 × 55 mm"
+    trim_mm: [85, 55]
+    bleed_mm: 2
+    safety_mm: 3
+    min_dpi: 250
+    target_dpi: 300
+    viewing_distance_m: 0.3
+    max_tac: 300
+    max_pages: 2
+    allowed_scales: [1]
+
+  flyer_a6:
+    name: "Flyer DIN A6"
+    trim_mm: [105, 148]
+    bleed_mm: 2
+    safety_mm: 3
+    min_dpi: 250
+    target_dpi: 300
+    viewing_distance_m: 0.4
+    max_tac: 300
+    max_pages: 2
+    allowed_scales: [1]
+
+  flyer_a5:
+    name: "Flyer DIN A5"
+    trim_mm: [148, 210]
+    bleed_mm: 2
+    safety_mm: 3
+    min_dpi: 250
+    target_dpi: 300
+    viewing_distance_m: 0.4
+    max_tac: 300
+    max_pages: 2
+    allowed_scales: [1]
+
+  flyer_a4:
+    name: "Flyer DIN A4"
+    trim_mm: [210, 297]
+    bleed_mm: 2
+    safety_mm: 4
+    min_dpi: 250
+    target_dpi: 300
+    viewing_distance_m: 0.5
+    max_tac: 300
+    max_pages: 2
+    allowed_scales: [1]
+
+  plakat_a1:
+    name: "Plakat DIN A1"
+    trim_mm: [594, 841]
+    bleed_mm: 3
+    safety_mm: 10
+    min_dpi: 100
+    target_dpi: 150
+    viewing_distance_m: 1.5
+    max_tac: 300
+    max_pages: 1
+    allowed_scales: [1]
+
+  plakat_a0:
+    name: "Plakat DIN A0"
+    trim_mm: [841, 1189]
+    bleed_mm: 3
+    safety_mm: 10
+    min_dpi: 80
+    target_dpi: 120
+    viewing_distance_m: 2.0
+    max_tac: 300
+    max_pages: 1
+    allowed_scales: [1]
+
+  grossflaeche_18_1:
+    name: "18/1-Großflächenplakat 356 × 252 cm"
+    trim_mm: [3560, 2520]
+    bleed_mm: 0               # Endformat enthält bereits die Überlappung
+    safety_mm: 60             # Randbereich wird vom Rahmen der Werbetafel verdeckt
+    min_dpi: 25
+    target_dpi: 35
+    viewing_distance_m: 15
+    max_tac: 300
+    max_pages: 1
+    allowed_scales: [1, 0.1]  # üblich: Lieferung im Maßstab 1:10
+
+  bauzaunbanner:
+    name: "Bauzaunbanner 340 × 173 cm"
+    trim_mm: [3400, 1730]
+    bleed_mm: 10
+    safety_mm: 50             # Saum und Ösen
+    min_dpi: 50
+    target_dpi: 72
+    viewing_distance_m: 5
+    max_tac: 300
+    max_pages: 1
+    allowed_scales: [1, 0.1]
+
+  rollup:
+    name: "Rollup 85 × 200 cm"
+    trim_mm: [850, 2000]
+    bleed_mm: 5
+    safety_mm: {top: 30, right: 30, bottom: 100, left: 30}  # unten verschwindet ein Teil in der Kassette
+    min_dpi: 100
+    target_dpi: 150
+    viewing_distance_m: 1.5
+    max_tac: 300
+    max_pages: 1
+    allowed_scales: [1, 0.5, 0.1]
