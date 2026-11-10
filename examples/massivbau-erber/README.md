@@ -23,7 +23,7 @@ die Schrift nicht.)
 | Leistungen | `#leistungen` | Sechs Leistungen, asymmetrisches Raster |
 | Warum massiv | `#massiv` | Wandschnitt mit vier Argumenten |
 | Ablauf | `#ablauf` | Fünf Schritte |
-| Referenzen | `#referenzen` | **Platzhalter**, noch keine echten Projekte |
+| Referenzen | `#referenzen` | **Demofotos**, noch keine echten Projekte |
 | Betrieb | `#betrieb` | Kurztext und Visitenkarte Sandro Erber |
 | Kontakt | `#kontakt` | Telefon, E-Mail, Anfrageformular |
 | Footer | – | Anschrift, Kontakt, Impressum, Datenschutz |
@@ -45,8 +45,8 @@ branchentypisch angenommen und im Entwurf als solches gekennzeichnet.
 - [ ] Einsatzgebiet bestätigen („Landkreis Rottal-Inn und Umgebung")
 - [ ] Ablauf-Texte bestätigen (Angebot, Ansprechpartner auf der Baustelle)
 - [ ] Logo: nachgezeichnete Bildmarke durch die Original-Vektordatei ersetzen
-- [ ] Referenzen: echte Fotos und Projektdaten liefern, sonst Sektion und
-      Menüpunkt mit `hidden` ausblenden
+- [ ] Demofotos (Hero-Folien 2 und 3, Referenzen) durch echte Fotos und
+      Projektdaten ersetzen, sonst Referenzen samt Menüpunkt mit `hidden` ausblenden
 - [ ] Impressum: Komplementär-GmbH, Registergericht, Registernummer, USt-ID
 - [ ] Datenschutzerklärung schreiben und prüfen lassen
 - [ ] Entwurfs-Hinweis oben auf der Seite entfernen (`.draft-note` in `index.html`)
@@ -57,3 +57,20 @@ branchentypisch angenommen und im Entwurf als solches gekennzeichnet.
 
 Red Hat Display (SIL Open Font License, siehe `assets/fonts/OFL.txt`), lokal
 eingebunden.
+
+## Demofotos
+
+Die Bilder in `assets/demo/` stammen von Unsplash (Unsplash-Lizenz, freie
+Nutzung) und zeigen keine Bauten des Betriebs. Sie sind auf der Seite als
+„Demofoto" gekennzeichnet. Foto-IDs: `1541888946425-d81bb19240f5`,
+`1517581177682-a085bb7ffb15`, `1449844908441-8829872d2607`,
+`1523217582562-09d0def993a6`, `1504307651254-35680f356dfd`.
+
+## Einzeldatei zum Verschicken
+
+```bash
+python3 build-standalone.py
+```
+
+erzeugt `dist/massivbau-erber-entwurf.html`: eine einzige Datei mit Schrift,
+Bildern, Stil und Skript, die per Doppelklick im Browser läuft.
