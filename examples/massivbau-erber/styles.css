@@ -289,6 +289,8 @@ main:focus { outline: none; }
   border-bottom: 1px solid var(--line);
   box-shadow: var(--overlay-shadow);
 }
+/* Brücke über die Lücke zwischen Menüpunkt und Panel, damit Hover nicht abreißt */
+.mega::before { content: ""; position: absolute; left: 0; right: 0; top: -20px; height: 20px; }
 .mega__inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
@@ -466,7 +468,11 @@ main:focus { outline: none; }
   font-variant-numeric: tabular-nums;
   color: var(--muted);
 }
-html:not(.js) .slider-controls { display: none; }
+html:not(.js) .slider-controls,
+html:not(.js) .nav-toggle,
+html:not(.js) .mega-toggle .icon,
+html:not(.js) .dock { display: none; }
+html:not(.js) .mega-toggle { pointer-events: none; }
 
 .stamp {
   display: flex;
@@ -1009,7 +1015,9 @@ html:not(.js) .slider-controls { display: none; }
     background: var(--paper);
     border-top: 1px solid var(--line);
   }
-  html:not(.js) .site-nav { display: none; }
+  html:not(.js) .site-header__inner { flex-wrap: wrap; padding-block: var(--s3); }
+  html:not(.js) .site-nav { display: flex; position: static; height: auto; width: 100%; padding: 0 0 var(--s4); border: 0; overflow: visible; }
+  html:not(.js) .site-header { position: static; }
   .site-nav.is-open { display: flex; }
   .site-nav__list { flex-direction: column; align-items: stretch; gap: 0; }
   .site-nav__list > li { border-bottom: 1px solid var(--line); }
@@ -1026,6 +1034,7 @@ html:not(.js) .slider-controls { display: none; }
   .site-nav__link[aria-current="true"] { color: var(--orange-strong); }
   .site-nav__cta { min-height: 56px; font-size: 1.125rem; }
 
+  .mega::before { display: none; }
   .mega {
     position: static;
     border: 0;
@@ -1046,7 +1055,7 @@ html:not(.js) .slider-controls { display: none; }
   .hero { padding-top: var(--s4); }
   .section-head--split { grid-template-columns: 1fr; }
   .service, .service--feature, .service--half, .service--wide { grid-column: span 6; grid-row: auto; }
-  .service--feature { grid-column: 1 / -1; }
+  .service--feature, .service--dark { grid-column: 1 / -1; }
   .why, .about, .contact { grid-template-columns: 1fr; }
   .why__art { max-width: 300px; }
   .refs { grid-template-columns: 1fr 1fr; }
@@ -1057,7 +1066,8 @@ html:not(.js) .slider-controls { display: none; }
 
 /* ========== Handy: feste Leiste statt schwebendem Button ========== */
 @media (max-width: 767px) {
-  body { font-size: 1.0625rem; padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  body { font-size: 1.0625rem; }
+  body:has(.callbar) { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
   html { scroll-padding-bottom: 80px; }
   .dock { display: none; }
   .callbar {

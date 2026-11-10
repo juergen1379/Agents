@@ -33,17 +33,23 @@
   function megaIsOpen() { return mega && !mega.hidden; }
 
   if (megaToggle) {
-    megaToggle.addEventListener('click', function () { setMega(!megaIsOpen()); });
+    // Hat die Maus das Menü gerade geöffnet, soll der Klick es nicht wieder schließen
+    var hoverOpened = false;
+    megaToggle.addEventListener('click', function () {
+      if (megaIsOpen() && hoverOpened) { hoverOpened = false; return; }
+      setMega(!megaIsOpen());
+    });
 
     // Hover nur mit Maus und nur in der Desktop-Leiste
     megaItem.addEventListener('pointerenter', function (e) {
       if (e.pointerType !== 'mouse' || !desktopNav.matches) return;
       clearTimeout(megaTimer);
-      megaTimer = setTimeout(function () { setMega(true); }, 90);
+      megaTimer = setTimeout(function () { if (!megaIsOpen()) { hoverOpened = true; setMega(true); } }, 90);
     });
     megaItem.addEventListener('pointerleave', function (e) {
       if (e.pointerType !== 'mouse' || !desktopNav.matches) return;
       clearTimeout(megaTimer);
+      hoverOpened = false;
       megaTimer = setTimeout(function () { setMega(false); }, 220);
     });
 
@@ -59,14 +65,19 @@
   /* ---------- Mobiles Menü ---------- */
   function navIsOpen() { return nav.classList.contains('is-open'); }
 
+  function sizeNav() {
+    var space = window.innerHeight - header.getBoundingClientRect().bottom;
+    nav.style.setProperty('--nav-h', Math.max(space, 240) + 'px');
+  }
+  window.addEventListener('resize', function () { if (navIsOpen()) sizeNav(); });
+
   function setNav(open, returnFocus) {
     nav.classList.toggle('is-open', open);
     navToggle.setAttribute('aria-expanded', String(open));
     document.body.classList.toggle('nav-open', open);
     [main, footer, dock, callbar].forEach(function (el) { if (el) el.inert = open; });
     if (open) {
-      var space = window.innerHeight - header.getBoundingClientRect().bottom;
-      nav.style.setProperty('--nav-h', Math.max(space, 240) + 'px');
+      sizeNav();
     } else {
       setMega(false);
       if (returnFocus) navToggle.focus();
@@ -168,7 +179,10 @@
     $('[data-slider="prev"]', hero).addEventListener('click', function () { manual(index - 1); });
     $('[data-slider="next"]', hero).addEventListener('click', function () { manual(index + 1); });
     dots.forEach(function (d, n) { d.addEventListener('click', function () { manual(n); }); });
-    toggle.addEventListener('click', function () { setPlaying(!playing); });
+    toggle.addEventListener('click', function () {
+      if (!playing) focusInside = false; // ausdrücklicher Start schlägt die Fokus-Pause
+      setPlaying(!playing);
+    });
 
     hero.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hovering = true; schedule(); } });
     hero.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hovering = false; schedule(); } });
@@ -251,6 +265,12 @@
     var copied = $('#form-copied');
     var lastText = '';
     var MAIL = 'sandro@massivbau-erber.de';
+    var submitBtn = $('[type="submit"]', form);
+    var submitting = false;
+    form.noValidate = true; // eigene Prüfung unten; ohne JS prüft der Browser
+    // Fehlermeldungen beim Verlassen eines Felds dürfen den Klick auf den Button nicht verschieben
+    submitBtn.addEventListener('pointerdown', function () { submitting = true; });
+    document.addEventListener('pointerup', function () { setTimeout(function () { submitting = false; }, 0); });
 
     var rules = [
       { id: 'f-name', err: 'e-name', test: function (v) { return v.length > 1; }, msg: 'Bitte geben Sie Ihren Namen ein.' },
@@ -280,6 +300,7 @@
     rules.forEach(function (rule) {
       var input = document.getElementById(rule.id);
       input.addEventListener('blur', function () {
+        if (submitting) return;
         if (input.value.trim() !== '' || input.hasAttribute('aria-invalid')) check(rule);
       });
       input.addEventListener('input', function () {
