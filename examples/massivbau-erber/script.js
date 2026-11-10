@@ -148,7 +148,8 @@
     var slidesWrap = $('#hero-slides');
     var index = 0;
     var timer = null;
-    var playing = !reduceMotion.matches; // Wunsch des Nutzers
+    // Kein Autoplay bei reduzierter Bewegung und auf dem Handy (Steuerung liegt dort unter dem Falz)
+    var playing = !reduceMotion.matches && window.matchMedia('(min-width: 768px)').matches;
     var hovering = false;
     var focusInside = false;
     var onScreen = true;

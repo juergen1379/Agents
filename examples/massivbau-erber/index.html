@@ -47,13 +47,13 @@
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 
 <!-- ENTWURFS-HINWEIS: vor dem Livegang entfernen, sobald die Inhalte bestätigt sind -->
-<div class="draft-note" role="note">
+<aside class="draft-note" aria-label="Entwurfs-Hinweis">
   <strong>Entwurf.</strong> Leistungen, Ablauf und Einsatzgebiet sind branchentypische Annahmen und noch nicht vom Betrieb bestätigt.
-</div>
+</aside>
 
 <header class="site-header" id="site-header">
   <div class="container site-header__inner">
-    <a class="logo" href="#start" aria-label="Massivbau Erber, zum Seitenanfang">
+    <a class="logo" href="#start" aria-label="Erber Massivbau, zum Seitenanfang">
       <svg class="logo__mark" aria-hidden="true"><use href="#mark"/></svg>
       <span class="logo__word" aria-hidden="true"><span class="logo__name">ERBER</span><span class="logo__sub">MASSIVBAU</span></span>
     </a>
@@ -106,6 +106,26 @@
     </nav>
   </div>
 </header>
+
+<!-- ===================== STICKY-KONTAKT ===================== -->
+<aside class="dock" id="dock" aria-label="Schnellkontakt">
+  <button class="dock__btn" type="button" id="dock-btn" aria-expanded="false" aria-controls="dock-panel">
+    <svg class="icon dock__icon-open" aria-hidden="true"><use href="#i-phone"/></svg>
+    <svg class="icon dock__icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+    <span>Kontakt</span>
+  </button>
+  <div class="dock__panel" id="dock-panel" hidden>
+    <p class="dock__title">Sandro Erber erreichen</p>
+    <a class="dock__action" href="tel:+4915114340231"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span><strong>Anrufen</strong><span>+49 151 14340231</span></span></a>
+    <a class="dock__action" href="mailto:sandro@massivbau-erber.de"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span><strong>E-Mail schreiben</strong><span>sandro@massivbau-erber.de</span></span></a>
+    <a class="dock__action" href="#kontakt"><svg class="icon" aria-hidden="true"><use href="#i-form"/></svg><span><strong>Anfrage schreiben</strong><span>Zum Formular</span></span></a>
+  </div>
+</aside>
+
+<nav class="callbar" id="callbar" aria-label="Schnellkontakt mobil">
+  <a class="callbar__btn callbar__btn--call" href="tel:+4915114340231"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg> Anrufen</a>
+  <a class="callbar__btn" href="#kontakt"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-form"/></svg> Anfrage</a>
+</nav>
 
 <main id="inhalt" tabindex="-1">
 
@@ -236,7 +256,7 @@
           <button class="icon-btn" type="button" data-slider="toggle" aria-label="Automatischen Wechsel anhalten"><svg class="icon" aria-hidden="true"><use href="#i-pause"/></svg></button>
           <span class="slider-count" aria-hidden="true"><span data-slider="current">01</span> / 03</span>
         </div>
-        <dl class="stamp" aria-label="Planstempel">
+        <dl class="stamp">
           <div><dt>Projekt</dt><dd>Ihr Bau</dd></div>
           <div><dt>Bauweise</dt><dd>Massiv</dd></div>
           <div><dt>Standort</dt><dd>Zeilarn</dd></div>
@@ -419,7 +439,7 @@
         <a class="btn btn--secondary" href="#kontakt">Kontakt aufnehmen <svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
 
-      <div class="card" aria-label="Ansprechpartner">
+      <div class="card" role="group" aria-label="Ansprechpartner">
         <svg class="card__mark" aria-hidden="true"><use href="#mark-outline"/></svg>
         <div class="card__body">
           <p class="card__name">Sandro Erber</p>
@@ -551,26 +571,6 @@
     <p class="site-footer__legal">© <span id="year">2026</span> Massivbau Erber GmbH &amp; Co KG · ehem. Fürstberger/Erber &amp; Co</p>
   </div>
 </footer>
-
-<!-- ===================== STICKY-KONTAKT ===================== -->
-<div class="dock" id="dock">
-  <div class="dock__panel" id="dock-panel" hidden>
-    <p class="dock__title">Sandro Erber erreichen</p>
-    <a class="dock__action" href="tel:+4915114340231"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span><strong>Anrufen</strong><span>+49 151 14340231</span></span></a>
-    <a class="dock__action" href="mailto:sandro@massivbau-erber.de"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span><strong>E-Mail schreiben</strong><span>sandro@massivbau-erber.de</span></span></a>
-    <a class="dock__action" href="#kontakt"><svg class="icon" aria-hidden="true"><use href="#i-form"/></svg><span><strong>Anfrage schreiben</strong><span>Zum Formular</span></span></a>
-  </div>
-  <button class="dock__btn" type="button" id="dock-btn" aria-expanded="false" aria-controls="dock-panel">
-    <svg class="icon dock__icon-open" aria-hidden="true"><use href="#i-phone"/></svg>
-    <svg class="icon dock__icon-close" aria-hidden="true"><use href="#i-close"/></svg>
-    <span>Kontakt</span>
-  </button>
-</div>
-
-<div class="callbar" id="callbar">
-  <a class="callbar__btn callbar__btn--call" href="tel:+4915114340231"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg> Anrufen</a>
-  <a class="callbar__btn" href="#kontakt"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-form"/></svg> Anfrage</a>
-</div>
 
 <script src="script.js" defer></script>
 </body>
