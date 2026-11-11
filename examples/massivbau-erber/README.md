@@ -11,21 +11,21 @@ python3 -m http.server 8000
 ```
 
 Dann `http://localhost:8000` öffnen. (Direkt als Datei geöffnet lädt der Browser
-die Schrift nicht.)
+die Schrift nicht; dafür gibt es die Einzeldatei, siehe unten.)
 
 ## Aufbau
 
 | Bereich | Anker | Inhalt |
 |---|---|---|
 | Header | – | Logo, Ankermenü mit Mega-Menü „Leistungen", Telefon-Button |
-| Hero-Slider | `#start` | Drei Folien mit Planzeichnungen, Vor/Zurück, Punkte, Pause |
-| Claim-Balken | – | „Starke Bauten für Generationen · Natürlich Massiv!" |
-| Leistungen | `#leistungen` | Sechs Leistungen, asymmetrisches Raster |
-| Warum massiv | `#massiv` | Wandschnitt mit vier Argumenten |
-| Ablauf | `#ablauf` | Fünf Schritte |
-| Referenzen | `#referenzen` | **Demofotos**, noch keine echten Projekte |
-| Betrieb | `#betrieb` | Kurztext und Visitenkarte Sandro Erber |
-| Kontakt | `#kontakt` | Telefon, E-Mail, Anfrageformular |
+| Hero-Slider | `#start` | Drei Folien mit Fotos, Vor/Zurück, Punkte, Pause |
+| Claim-Balken | – | Claim, Erfahrung, Teamgröße, Region |
+| Leistungen | `#leistungen` | Sechs Kernkompetenzen mit Fotos |
+| Vorteile | `#vorteile` | „Warum zu den Erbers?", vier Punkte |
+| Digital | `#digital` | Digitale Arbeitsweise auf der Baustelle |
+| Referenzen | `#referenzen` | Galerie mit neun Projektfotos, drei Kundenstimmen |
+| Unternehmen | `#unternehmen` | Chronik seit 1995, Teamfoto, Visitenkarte, Kundenzitat |
+| Kontakt | `#kontakt` | Telefon, E-Mail, Instagram, Anfrageformular |
 | Footer | – | Anschrift, Kontakt, Impressum, Datenschutz |
 | Sticky-Kontakt | – | Desktop: schwebender Button; Handy: Leiste „Anrufen / Anfrage" |
 
@@ -33,38 +33,26 @@ Gestaltungsregeln stehen in `DESIGN.md`.
 
 ## Woher die Inhalte stammen
 
-Gesichert (von der Visitenkarte): Firmenname, früherer Name, Geschäftsführer,
-Anschrift, Telefon, E-Mail, Claim, Logo und Farben.
+Texte, Fakten, Kundenstimmen, Impressumsdaten und alle Fotos stammen von
+https://www.massivbau-erber.com/ (Stand November 2026). Die Texte wurden
+gekürzt und neu geordnet, Aussagen und Zahlen aber nicht verändert. Logo,
+Farben, Claim sowie Mobilnummer und E-Mail von Sandro Erber stammen von der
+Visitenkarte.
 
-Die bisherige Website war beim Bau nicht erreichbar. Alles Weitere ist
-branchentypisch angenommen und im Entwurf als solches gekennzeichnet.
+Bewusst nicht übernommen: drei Stockfotos der alten Seite (Pexels) und die
+Formulierung „garantierte Terminsicherheit" (übernommen ist „Zuverlässigkeit &
+Termintreue").
 
-## Vor dem Livegang zu klären
+## Vor der Veröffentlichung zu klären
 
-- [ ] Die sechs Leistungen bestätigen oder anpassen
-- [ ] Einsatzgebiet bestätigen („Landkreis Rottal-Inn und Umgebung")
-- [ ] Ablauf-Texte bestätigen (Angebot, Ansprechpartner auf der Baustelle)
-- [ ] Logo: nachgezeichnete Bildmarke durch die Original-Vektordatei ersetzen
-- [ ] Demofotos (Hero-Folien 2 und 3, Referenzen) durch echte Fotos und
-      Projektdaten ersetzen, sonst Referenzen samt Menüpunkt mit `hidden` ausblenden
-- [ ] Impressum: Komplementär-GmbH, Registergericht, Registernummer, USt-ID
-- [ ] Datenschutzerklärung schreiben und prüfen lassen
+- [ ] Texte und Bildauswahl freigeben
+- [ ] Bildunterschriften für die Referenzen liefern, falls gewünscht (Ort, Bauaufgabe)
+- [ ] Einverständnis der abgebildeten Mitarbeiter für die Teamfotos prüfen
+- [ ] Soll die Mobilnummer von Sandro Erber öffentlich auf der Seite stehen?
+- [ ] Datenschutzerklärung schreiben und prüfen lassen (die alte Seite hat keine)
 - [ ] Entwurfs-Hinweis oben auf der Seite entfernen (`.draft-note` in `index.html`)
 - [ ] Optional: Formular an einen Versanddienst anbinden. Aktuell öffnet es das
       E-Mail-Programm des Besuchers (kein Server nötig).
-
-## Schrift
-
-Red Hat Display (SIL Open Font License, siehe `assets/fonts/OFL.txt`), lokal
-eingebunden.
-
-## Demofotos
-
-Die Bilder in `assets/demo/` stammen von Unsplash (Unsplash-Lizenz, freie
-Nutzung) und zeigen keine Bauten des Betriebs. Sie sind auf der Seite als
-„Demofoto" gekennzeichnet. Foto-IDs: `1541888946425-d81bb19240f5`,
-`1517581177682-a085bb7ffb15`, `1449844908441-8829872d2607`,
-`1523217582562-09d0def993a6`, `1504307651254-35680f356dfd`.
 
 ## Einzeldatei zum Verschicken
 
@@ -74,3 +62,8 @@ python3 build-standalone.py
 
 erzeugt `dist/massivbau-erber-entwurf.html`: eine einzige Datei mit Schrift,
 Bildern, Stil und Skript, die per Doppelklick im Browser läuft.
+
+## Schrift
+
+Red Hat Display (SIL Open Font License, siehe `assets/fonts/OFL.txt`), lokal
+eingebunden.

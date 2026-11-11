@@ -32,7 +32,7 @@ def swap(text, old, new, count=None):
     return text.replace(old, new) if count is None else text.replace(old, new, count)
 
 html = re.sub(r'\s*<link rel="preload"[^>]+>', "", html)
-html = re.sub(r'src="(assets/demo/[^"]+\.webp)"',
+html = re.sub(r'src="(assets/img/[^"]+\.webp)"',
               lambda m: 'src="%s"' % data_uri(m.group(1), "image/webp"), html)
 html = swap(html, '<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">',
             '<link rel="icon" href="%s">' % data_uri("assets/favicon.svg", "image/svg+xml"))
@@ -43,8 +43,6 @@ html = swap(html, 'href="datenschutz.html"', 'href="#datenschutz"')
 html = swap(html, "<footer class=\"site-footer\">",
             legal("impressum.html", "impressum") + legal("datenschutz.html", "datenschutz")
             + "<footer class=\"site-footer\">")
-html = swap(html, "<strong>Entwurf.</strong> Leistungen, Ablauf und Einsatzgebiet sind branchentypische Annahmen und noch nicht vom Betrieb bestätigt. Fotos sind Demofotos.",
-            "<strong>Entwurf zur Abstimmung.</strong> Leistungen, Ablauf und Einsatzgebiet sind Vorschläge, die Fotos sind Demofotos. Bitte prüfen und korrigieren.")
 html = swap(html, "<head>", '<head>\n  <meta name="robots" content="noindex">')
 
 out = root / "dist" / "massivbau-erber-entwurf.html"

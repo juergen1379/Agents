@@ -265,7 +265,7 @@
     var copyBtn = $('#form-copy');
     var copied = $('#form-copied');
     var lastText = '';
-    var MAIL = 'sandro@massivbau-erber.de';
+    var MAIL = 'info@massivbau-erber.de';
     var submitBtn = $('[type="submit"]', form);
     var submitting = false;
     form.noValidate = true; // eigene Prüfung unten; ohne JS prüft der Browser

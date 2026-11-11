@@ -70,8 +70,7 @@ Seitenrand `clamp(20px, 4vw, 40px)`.
 - **Header**: sticky, 76px, Logo links, Ankermenü, Telefon-Button rechts.
   „Leistungen" öffnet ein Mega-Menü (Disclosure-Button, Esc schließt).
   Aktiver Anker: Unterstrich + Gewicht, nicht nur Farbe.
-- **Hero-Slider**: drei Folien, je Text links + Planzeichnung rechts, die sich
-  selbst zeichnet. Vor/Zurück, Punkte, Pause. Autoplay hält bei Hover, Fokus
+- **Hero-Slider**: drei Folien, je Text links + Foto im Versatzrahmen rechts. Vor/Zurück, Punkte, Pause. Autoplay hält bei Hover, Fokus
   und `prefers-reduced-motion` an.
 - **Leistungs-Kacheln**: asymmetrisches Raster, weiße Fläche, 1px Rahmen,
   orange Eckmarke oben links.
@@ -85,7 +84,9 @@ Seitenrand `clamp(20px, 4vw, 40px)`.
 
 ## Bild und Icon
 
-Keine Stockfotos. Planzeichnungen als Inline-SVG (Stroke Orange 2px,
-Beschriftung Anthrazit). Icons: eigene Outline-SVGs, 32er Raster, 1.75px,
-runde Enden, als Bauteile gezeichnet. Echte Baustellenfotos können die
-Referenz-Platzhalter später ersetzen.
+Eigene Baustellen-, Projekt- und Teamfotos des Betriebs (aus `assets/img/`),
+keine Stockfotos. Hero, Vorteile und Digital zeigen Fotos im Rahmen mit hartem
+orangem Versatz (12px). Leistungs-Kacheln tragen das Foto oben, die Galerie
+zeigt 4:3-Ausschnitte. Icons: eigene Outline-SVGs, 32er Raster, 1.75px, runde
+Enden. Die Outline-Bildmarke bleibt Markenmotiv in Visitenkarte, Kontakt und
+Footer.
