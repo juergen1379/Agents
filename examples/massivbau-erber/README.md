@@ -25,6 +25,7 @@ die Schrift nicht; dafür gibt es die Einzeldatei, siehe unten.)
 | Digital | `#digital` | Digitale Arbeitsweise auf der Baustelle |
 | Referenzen | `#referenzen` | Galerie mit neun Projektfotos, drei Kundenstimmen |
 | Unternehmen | `#unternehmen` | Chronik seit 1995, Teamfoto, Visitenkarte, Kundenzitat |
+| Karriere | `#karriere` | Stellenangebot Maurer-Azubis und Maurer-Gesellen (m/w/d) |
 | Kontakt | `#kontakt` | Telefon, E-Mail, Instagram, Anfrageformular |
 | Footer | – | Anschrift, Kontakt, Impressum, Datenschutz |
 | Sticky-Kontakt | – | Desktop: schwebender Button; Handy: Leiste „Anrufen / Anfrage" |
@@ -46,6 +47,8 @@ Termintreue").
 ## Vor der Veröffentlichung zu klären
 
 - [ ] Texte und Bildauswahl freigeben
+- [ ] Stellenangebot: Aufgaben, Anforderungen und „Das erwartet Dich" bestätigen
+      (die Stellen stammen vom Banner, die Kurzbeschreibung ist ein Vorschlag)
 - [ ] Bildunterschriften für die Referenzen liefern, falls gewünscht (Ort, Bauaufgabe)
 - [ ] Einverständnis der abgebildeten Mitarbeiter für die Teamfotos prüfen
 - [ ] Soll die Mobilnummer von Sandro Erber öffentlich auf der Seite stehen?
