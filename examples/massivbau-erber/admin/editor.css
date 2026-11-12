@@ -84,3 +84,28 @@ img[data-edit-img].adm-changed { outline: 4px solid #f2b600; }
 .adm-list { margin: 0; padding: 0; list-style: none; max-height: 320px; overflow: auto; }
 .adm-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--adm-line); }
 .adm-list form { margin: 0; }
+
+/* ---------- Listen: Schaltflächen je Eintrag ---------- */
+[data-repeat] > [data-item] { position: relative; }
+.adm-tools {
+  position: absolute; right: 8px; top: -14px; z-index: 5;
+  display: flex; gap: 2px; padding: 3px;
+  background: var(--adm-ink); border-radius: 4px;
+  opacity: .35; transition: opacity .15s;
+}
+[data-item]:hover > .adm-tools, [data-item]:focus-within > .adm-tools { opacity: 1; }
+@media (hover: none) { .adm-tools { opacity: 1; } }
+.adm-tools button {
+  width: 30px; height: 30px; padding: 0;
+  border: 0; border-radius: 3px;
+  background: transparent; color: #fff;
+  font: 700 18px/1 var(--adm-font); cursor: pointer;
+}
+.adm-tools button:hover { background: var(--adm-orange); }
+.adm-tools button:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
+.adm-tools button:disabled { opacity: .3; cursor: default; background: transparent; }
+.adm-tools button[data-act="add"] { background: var(--adm-orange); }
+.gallery > [data-item] > .adm-tools { top: 6px; right: 6px; }
+[data-repeat] { overflow: visible; }
+.job__list > [data-item], .digital__list > [data-item] { padding-right: 0; }
+[data-item].adm-new { box-shadow: 0 0 0 3px #f2b600; }

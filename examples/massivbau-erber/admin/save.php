@@ -40,6 +40,13 @@ foreach ((array) ($in['images'] ?? []) as $key => $img) {
     if (set_image($html, $key, $src, $alt, $w, $h) > 0) { $done++; } else { $skipped[] = $key; }
 }
 
+foreach ((array) ($in['groups'] ?? []) as $name => $items) {
+    if (!is_string($name) || !is_array($items)) { continue; }
+    $problem = rebuild_group($html, $name, array_values($items));
+    if ($problem !== null) { json_out(['ok' => false, 'error' => $problem . ' Es wurde nichts gespeichert.'], 422); }
+    $done++;
+}
+
 if ($html === $before) {
     json_out(['ok' => true, 'saved' => 0, 'skipped' => $skipped]);
 }

@@ -83,7 +83,7 @@ $ui = <<<HTML
     <form method="post" action="admin/manage.php"><input type="hidden" name="csrf" value="{$csrf}"><input type="hidden" name="action" value="logout"><button type="submit" class="adm-btn">Abmelden</button></form>
   </div>
 </div>
-<p class="adm-hint" id="adm-hint">Texte anklicken und ändern. Bilder anklicken, um sie zu ersetzen. Danach oben auf „Speichern“ klicken.</p>
+<p class="adm-hint" id="adm-hint">Texte anklicken und ändern. Bilder anklicken, um sie zu ersetzen. In Listen und in der Galerie legt „+“ einen neuen Eintrag an, „×“ löscht ihn, die Pfeile verschieben ihn. Danach oben auf „Speichern“ klicken.</p>
 <div class="adm-toast" id="adm-toast" role="status" aria-live="polite"></div>
 
 <dialog class="adm-dialog" id="adm-image" aria-labelledby="adm-image-title">

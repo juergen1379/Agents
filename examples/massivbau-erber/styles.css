@@ -629,7 +629,8 @@ html:not(.js) .mega-toggle { pointer-events: none; }
   align-items: center;
 }
 .why__art { width: 100%; max-width: 460px; justify-self: center; }
-.why__list { display: grid; }
+.why__list { display: grid; counter-reset: why; }
+.why__no::before { counter-increment: why; content: counter(why); }
 .why__list li {
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);

@@ -174,3 +174,86 @@ function set_image(string &$html, string $key, ?string $src, ?string $alt, ?int 
     if ($new !== null && $count > 0) $html = $new;
     return $count;
 }
+
+/* ---------- Listen: Einträge hinzufügen, löschen, umsortieren ----------
+   Eine Liste steht in der Seite zwischen <!--repeat:name--> und <!--/repeat:name-->,
+   jeder Eintrag zwischen <!--item:name--> und <!--/item:name-->. Neue Einträge
+   entstehen als Kopie eines vorhandenen Eintrags, nie aus fremdem HTML. */
+const MAX_GROUP_ITEMS = 60;
+
+/**
+ * Baut eine Liste neu auf. $items: [['src' => Index des Vorlage-Eintrags,
+ * 'texts' => [...], 'images' => [['src' => ?, 'alt' => ?], ...]], ...]
+ * Liefert null bei Erfolg, sonst eine Fehlermeldung.
+ */
+function rebuild_group(string &$html, string $name, array $items): ?string {
+    if (!preg_match('/^[a-z0-9-]{1,40}$/', $name)) return 'Unbekannte Liste.';
+    $open = '<!--repeat:' . $name . '-->'; $close = '<!--/repeat:' . $name . '-->';
+    $a = strpos($html, $open); $b = strpos($html, $close);
+    if ($a === false || $b === false || $b < $a) return 'Die Liste „' . $name . '“ gibt es nicht.';
+    $inner = substr($html, $a + strlen($open), $b - $a - strlen($open));
+    $io = '<!--item:' . $name . '-->'; $ic = '<!--/item:' . $name . '-->';
+    if (!preg_match_all('~' . preg_quote($io, '~') . '(.*?)' . preg_quote($ic, '~') . '~s', $inner, $m) || !$m[1]) {
+        return 'Die Liste „' . $name . '“ ist leer.';
+    }
+    $existing = $m[1];
+    $count = count($items);
+    if ($count < 1 || $count > MAX_GROUP_ITEMS) return 'Eine Liste braucht zwischen 1 und ' . MAX_GROUP_ITEMS . ' Einträge.';
+
+    preg_match('~^\s*~', $inner, $lead);
+    $sep = $lead[0] !== '' ? $lead[0] : "\n";
+    preg_match('~\s*$~', $inner, $trail);
+
+    $used = [];
+    $out = [];
+    foreach ($items as $item) {
+        if (!is_array($item) || !isset($item['src']) || !is_int($item['src']) || !isset($existing[$item['src']])) {
+            return 'Ein Eintrag hat keine gültige Vorlage.';
+        }
+        $h = $existing[$item['src']];
+        if (isset($used[$item['src']])) {
+            // Kopie: eigene Schlüssel vergeben, damit jede Stelle eindeutig bleibt
+            $h = preg_replace_callback('~\sdata-edit="[a-z0-9-]+"~', fn() => ' data-edit="n-' . bin2hex(random_bytes(5)) . '"', $h);
+            $h = preg_replace_callback('~\sdata-edit-img="[a-z0-9-]+"~', fn() => ' data-edit-img="img-n-' . bin2hex(random_bytes(5)) . '"', $h);
+        }
+        $used[$item['src']] = true;
+
+        $texts = array_values((array) ($item['texts'] ?? []));
+        $i = 0; $bad = false;
+        $h = preg_replace_callback('~(<([a-z0-9]+)\b[^<>]*\sdata-edit="[a-z0-9-]+"[^<>]*>)[^<>]*(</\2>)~u',
+            function ($mm) use (&$i, $texts, &$bad) {
+                $t = $texts[$i++] ?? null;
+                if (!is_string($t) || mb_strlen($t) > MAX_TEXT_LENGTH) { $bad = true; return $mm[0]; }
+                $safe = clean_text($t);
+                if ($safe === '') { $bad = true; return $mm[0]; }
+                return $mm[1] . $safe . $mm[3];
+            }, $h);
+        if ($bad || $i !== count($texts)) return 'Ein Eintrag in „' . $name . '“ hat einen leeren oder zu langen Text.';
+
+        $images = array_values((array) ($item['images'] ?? []));
+        $j = 0;
+        $h = preg_replace_callback('~<img\b[^<>]*\sdata-edit-img="([a-z0-9-]+)"[^<>]*>~u',
+            function ($mm) use (&$j, $images, &$bad) {
+                $img = $images[$j++] ?? null;
+                if (!is_array($img)) { $bad = true; return $mm[0]; }
+                $src = null; $w = null; $hh = null;
+                if (isset($img['src'])) {
+                    $src = (string) $img['src'];
+                    $size = preg_match('~^assets/uploads/[a-z0-9-]+\.(jpg|png|webp)$~', $src) && is_file(__DIR__ . '/../' . $src)
+                        ? @getimagesize(__DIR__ . '/../' . $src) : false;
+                    if (!$size) { $bad = true; return $mm[0]; }
+                    [$w, $hh] = [$size[0], $size[1]];
+                }
+                $alt = isset($img['alt']) && is_string($img['alt'])
+                    ? trim(mb_substr(preg_replace('/\s+/u', ' ', $img['alt']) ?? '', 0, 300)) : null;
+                $tag = $mm[0];
+                set_image($tag, $mm[1], $src, $alt, $w, $hh);
+                return $tag;
+            }, $h);
+        if ($bad || $j !== count($images)) return 'Ein Bild in „' . $name . '“ konnte nicht übernommen werden.';
+
+        $out[] = $io . $h . $ic;
+    }
+    $html = substr($html, 0, $a + strlen($open)) . $sep . implode($sep, $out) . $trail[0] . substr($html, $b);
+    return null;
+}

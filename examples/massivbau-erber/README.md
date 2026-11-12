@@ -81,10 +81,16 @@ für `index.html`, `admin/data/` und `assets/uploads/`. HTTPS.
 Listenpunkte, Kundenstimmen, Chronik, Stellenangebot) und alle 20 Fotos samt
 Bildbeschreibung. Leistungstitel werden im Mega-Menü automatisch mitgeändert.
 
+**Was er selbst hinzufügen kann:** In acht Listen legt „+" einen neuen Eintrag
+an (als Kopie des Eintrags daneben), „×" löscht ihn, die Pfeile verschieben
+ihn: Galeriebilder, Kundenstimmen, Chronik, Vorteile, Digital-Punkte und die
+drei Aufzählungen im Stellenangebot. Jede Liste behält mindestens einen und
+höchstens 60 Einträge.
+
 **Was er nicht ändern kann:** Aufbau und Reihenfolge der Abschnitte, Menü,
-Telefonnummern, E-Mail-Adressen, Anschrift, Schaltflächen, Impressum und
-Datenschutz. Neue Abschnitte, Kacheln oder Galeriebilder legt weiterhin die
-Agentur an.
+Leistungs-Kacheln, Hero-Folien, Stellenkarten, Telefonnummern,
+E-Mail-Adressen, Anschrift, Schaltflächen, Impressum und Datenschutz. Neue
+Abschnitte oder ganz neue Elementarten legt weiterhin die Agentur an.
 
 **Sicherheit und Sicherung:**
 
@@ -99,6 +105,10 @@ Agentur an.
 
 **Neue bearbeitbare Stellen:** ein Text-Element ohne Kind-Elemente bekommt
 `data-edit="eindeutiger-schluessel"`, ein Bild `data-edit-img="img-name"`.
+Eine erweiterbare Liste bekommt `data-repeat="name"` am Behälter, `data-item`
+an jedem Eintrag und die Kommentar-Marken `<!--repeat:name-->` sowie
+`<!--item:name-->` (siehe Galerie in `index.html`). Listen dürfen nicht
+ineinander liegen, und der Eintrag selbst darf kein `data-edit` tragen.
 
 **Lokal ausprobieren:**
 

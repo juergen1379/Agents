@@ -7,8 +7,8 @@
   var memory = null;
 
   function load() {
-    try { return JSON.parse(localStorage.getItem(KEY)) || { texts: {}, images: {} }; }
-    catch (e) { return memory || { texts: {}, images: {} }; }
+    try { return JSON.parse(localStorage.getItem(KEY)) || { texts: {}, images: {}, groups: {} }; }
+    catch (e) { return memory || { texts: {}, images: {}, groups: {} }; }
   }
   function store(data) {
     memory = data;
@@ -36,6 +36,35 @@
     if (!img) return;
     if (c.src) img.src = c.src;
     if (typeof c.alt === 'string') img.alt = c.alt;
+  });
+
+  /* Gespeicherte Listen wieder aufbauen: Einträge sind Kopien der Einträge aus der Datei */
+  var tempKey = 0;
+  Object.keys(saved.groups || {}).forEach(function (name) {
+    var list = document.querySelector('[data-repeat="' + name + '"]');
+    if (!list) return;
+    var base = Array.prototype.filter.call(list.children, function (c) { return c.hasAttribute('data-item'); });
+    var used = {};
+    var fresh = saved.groups[name].map(function (d) {
+      if (!base[d.src]) return null;
+      var node = base[d.src].cloneNode(true);
+      node.setAttribute('data-src', String(d.src));
+      var copy = !!used[d.src]; used[d.src] = true;
+      node.querySelectorAll('[data-edit]').forEach(function (el, i) {
+        if (copy) el.setAttribute('data-edit', 'neu-d' + (++tempKey));
+        if (typeof d.texts[i] === 'string') el.textContent = d.texts[i];
+      });
+      node.querySelectorAll('img[data-edit-img]').forEach(function (img, i) {
+        if (copy) img.setAttribute('data-edit-img', 'img-neu-d' + (++tempKey));
+        var c = (d.images || [])[i] || {};
+        if (c.src) { img.src = c.src; img.setAttribute('data-new-src', c.src); }
+        if (typeof c.alt === 'string') img.alt = c.alt;
+      });
+      return node;
+    }).filter(Boolean);
+    if (!fresh.length) return;
+    base.forEach(function (n) { n.remove(); });
+    fresh.forEach(function (n) { list.appendChild(n); });
   });
 
   /* ---------- Ansicht: Einstieg und Anmeldung ---------- */
@@ -86,6 +115,8 @@
       Object.keys(body.images || {}).forEach(function (k) {
         data.images[k] = Object.assign(data.images[k] || {}, body.images[k]);
       });
+      data.groups = data.groups || {};
+      Object.keys(body.groups || {}).forEach(function (g) { data.groups[g] = body.groups[g]; });
       return Promise.resolve(answer(store(data)
         ? { ok: true, saved: 1, skipped: [] }
         : { ok: false, error: 'Der Demo-Speicher des Browsers ist voll. Bitte „Sicherungen“ öffnen und die Demo zurücksetzen.' }));
