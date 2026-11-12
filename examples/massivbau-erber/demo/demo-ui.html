@@ -1,0 +1,67 @@
+<dialog class="adm-dialog" id="demo-login" aria-labelledby="demo-login-title">
+  <p class="adm-brand">ERBER <span>MASSIVBAU</span></p>
+  <h2 id="demo-login-title">Anmelden</h2>
+  <p>Bearbeitungsbereich der Website. Demo-Passwort: <strong>erber-demo</strong></p>
+  <p class="adm-error" id="demo-login-error" role="alert" hidden></p>
+  <form id="demo-login-form">
+    <label for="demo-pw">Passwort</label>
+    <input id="demo-pw" type="password" autocomplete="off" required>
+    <div class="adm-dialog__actions">
+      <button type="submit" class="adm-btn adm-btn--primary">Anmelden</button>
+      <button type="button" class="adm-btn" id="demo-login-cancel">Abbrechen</button>
+    </div>
+  </form>
+</dialog>
+
+<template id="adm-ui">
+<div class="adm-bar" id="adm-bar" role="region" aria-label="Bearbeitungsleiste">
+  <p class="adm-bar__title"><strong>Bearbeiten</strong><span id="adm-status" role="status">Keine Änderungen</span></p>
+  <div class="adm-bar__actions">
+    <button type="button" class="adm-btn adm-btn--primary" id="adm-save" disabled>Speichern</button>
+    <button type="button" class="adm-btn" id="adm-discard" disabled>Verwerfen</button>
+    <button type="button" class="adm-btn" data-adm-open="adm-backups">Sicherungen</button>
+    <button type="button" class="adm-btn" data-adm-open="adm-password">Passwort</button>
+    <a class="adm-btn" href="#" data-adm-link>Seite ansehen</a>
+    <form><input type="hidden" name="action" value="logout"><button type="submit" class="adm-btn">Abmelden</button></form>
+  </div>
+</div>
+<p class="adm-hint" id="adm-hint">Texte anklicken und ändern. Bilder anklicken, um sie zu ersetzen. Danach oben auf „Speichern“ klicken. Demo: Änderungen bleiben nur in diesem Browser.</p>
+<div class="adm-toast" id="adm-toast" role="status" aria-live="polite"></div>
+
+<dialog class="adm-dialog" id="adm-image" aria-labelledby="adm-image-title">
+  <h2 id="adm-image-title">Bild ersetzen</h2>
+  <img id="adm-image-preview" alt="">
+  <label for="adm-image-file">Neues Bild wählen (JPG, PNG oder WebP, höchstens 12 MB)</label>
+  <input type="file" id="adm-image-file" accept="image/jpeg,image/png,image/webp">
+  <label for="adm-image-alt">Bildbeschreibung (für Suchmaschinen und Vorleseprogramme)</label>
+  <input type="text" id="adm-image-alt" maxlength="300">
+  <p class="adm-error" id="adm-image-error" role="alert" hidden></p>
+  <div class="adm-dialog__actions">
+    <button type="button" class="adm-btn adm-btn--primary" id="adm-image-apply">Übernehmen</button>
+    <button type="button" class="adm-btn" data-adm-close>Abbrechen</button>
+  </div>
+</dialog>
+
+<dialog class="adm-dialog" id="adm-backups" aria-labelledby="adm-backups-title">
+  <h2 id="adm-backups-title">Sicherungen</h2>
+  <p>Auf der echten Website wird vor jedem Speichern der vorherige Stand gesichert. In der Demo gibt es nur den Ausgangszustand.</p>
+  <ul class="adm-list"><li><span>Ausgangszustand der Demo</span>
+    <form><input type="hidden" name="action" value="restore"><button type="submit" class="adm-btn adm-btn--ghost">Wiederherstellen</button></form></li></ul>
+  <div class="adm-dialog__actions"><button type="button" class="adm-btn" data-adm-close>Schließen</button></div>
+</dialog>
+
+<dialog class="adm-dialog" id="adm-password" aria-labelledby="adm-password-title">
+  <h2 id="adm-password-title">Passwort ändern</h2>
+  <form>
+    <input type="hidden" name="action" value="password">
+    <label for="adm-pw-old">Aktuelles Passwort</label><input id="adm-pw-old" type="password" autocomplete="off" required>
+    <label for="adm-pw-new">Neues Passwort (mindestens 12 Zeichen)</label><input id="adm-pw-new" type="password" autocomplete="off" required>
+    <label for="adm-pw-again">Neues Passwort wiederholen</label><input id="adm-pw-again" type="password" autocomplete="off" required>
+    <div class="adm-dialog__actions">
+      <button type="submit" class="adm-btn adm-btn--primary">Passwort ändern</button>
+      <button type="button" class="adm-btn" data-adm-close>Abbrechen</button>
+    </div>
+  </form>
+</dialog>
+<script id="adm-config" type="application/json">{"csrf":"demo","notice":""}</script>
+</template>

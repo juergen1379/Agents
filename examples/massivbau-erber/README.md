@@ -117,6 +117,12 @@ python3 build-standalone.py
 erzeugt `dist/massivbau-erber-entwurf.html`: eine einzige Datei mit Schrift,
 Bildern, Stil und Skript, die per Doppelklick im Browser läuft.
 
+Derselbe Befehl erzeugt `dist/massivbau-erber-kundenzugang-demo.html`: eine
+Demo des Kundenzugangs ohne Server. Oben auf „Bearbeiten" klicken, Passwort
+`erber-demo`. Anmeldung, Upload und Speichern sind dort im Browser nachgestellt;
+Änderungen bleiben nur im Speicher dieses Browsers und lassen sich über
+„Sicherungen" zurücksetzen. Die Quellen der Demo liegen in `demo/`.
+
 ## Schrift
 
 Red Hat Display (SIL Open Font License, siehe `assets/fonts/OFL.txt`), lokal
