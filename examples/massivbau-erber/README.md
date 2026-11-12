@@ -53,9 +53,60 @@ Termintreue").
 - [ ] Einverständnis der abgebildeten Mitarbeiter für die Teamfotos prüfen
 - [ ] Soll die Mobilnummer von Sandro Erber öffentlich auf der Seite stehen?
 - [ ] Datenschutzerklärung schreiben und prüfen lassen (die alte Seite hat keine)
+- [ ] Hosting mit PHP 8.1+ wählen und den Kundenzugang unter `/admin/` einrichten
 - [ ] Entwurfs-Hinweis oben auf der Seite entfernen (`.draft-note` in `index.html`)
 - [ ] Optional: Formular an einen Versanddienst anbinden. Aktuell öffnet es das
       E-Mail-Programm des Besuchers (kein Server nötig).
+
+## Kundenzugang: Texte und Bilder selbst ändern
+
+Unter `/admin/` liegt ein passwortgeschützter Bearbeitungsbereich. Der Kunde
+sieht dort die Website, klickt Texte an und ändert sie direkt, klickt Bilder an
+und lädt ein neues hoch. „Speichern" schreibt die Änderungen in die
+`index.html`. Die Seite bleibt statisch und schnell, es gibt keine Datenbank.
+
+**Voraussetzungen beim Hoster:** PHP 8.1 oder neuer (üblich bei All-Inkl,
+IONOS, Strato, Hetzner), empfohlen mit der Bild-Erweiterung GD. Schreibrechte
+für `index.html`, `admin/data/` und `assets/uploads/`. HTTPS.
+
+**Einrichtung nach dem Hochladen:**
+
+1. `https://<domain>/admin/` aufrufen. Beim ersten Aufruf erscheint „Zugang
+   einrichten". Dort das Passwort festlegen (mindestens 12 Zeichen). Das bitte
+   **sofort nach dem Hochladen** tun, denn bis dahin kann jeder Besucher dieser
+   Adresse das Passwort setzen.
+2. Passwort an den Kunden übergeben. Er kann es im Bearbeitungsbereich ändern.
+
+**Was der Kunde ändern kann:** rund 100 Textstellen (Überschriften, Absätze,
+Listenpunkte, Kundenstimmen, Chronik, Stellenangebot) und alle 20 Fotos samt
+Bildbeschreibung. Leistungstitel werden im Mega-Menü automatisch mitgeändert.
+
+**Was er nicht ändern kann:** Aufbau und Reihenfolge der Abschnitte, Menü,
+Telefonnummern, E-Mail-Adressen, Anschrift, Schaltflächen, Impressum und
+Datenschutz. Neue Abschnitte, Kacheln oder Galeriebilder legt weiterhin die
+Agentur an.
+
+**Sicherheit und Sicherung:**
+
+- Vor jedem Speichern wird der alte Stand gesichert (die letzten 30 Stände,
+  wiederherstellbar über „Sicherungen").
+- Texte werden als reiner Text gespeichert, HTML wird maskiert.
+- Bilder werden geprüft, auf höchstens 1600 px Breite verkleinert und neu
+  gespeichert. Erlaubt sind JPG, PNG und WebP bis 12 MB.
+- Nach fünf falschen Passwörtern ist die Anmeldung für 15 Minuten gesperrt.
+- Passwort vergessen: die Datei `admin/data/config.php` per FTP löschen und die
+  Einrichtung neu durchlaufen.
+
+**Neue bearbeitbare Stellen:** ein Text-Element ohne Kind-Elemente bekommt
+`data-edit="eindeutiger-schluessel"`, ein Bild `data-edit-img="img-name"`.
+
+**Lokal ausprobieren:**
+
+```bash
+php -S localhost:8000
+```
+
+Dann `http://localhost:8000/admin/` öffnen.
 
 ## Einzeldatei zum Verschicken
 

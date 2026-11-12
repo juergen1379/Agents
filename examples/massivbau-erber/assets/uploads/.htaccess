@@ -1,0 +1,5 @@
+# In diesem Ordner liegen nur hochgeladene Bilder. Skripte werden nie ausgeliefert.
+<FilesMatch "(?i)\.(php\d?|phtml|phar|pl|py|cgi|sh|html?|js|svg)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes

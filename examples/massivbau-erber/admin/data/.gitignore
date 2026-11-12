@@ -1,0 +1,4 @@
+config.php
+attempts.php
+*.tmp
+backups/*.html
