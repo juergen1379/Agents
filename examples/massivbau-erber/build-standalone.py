@@ -57,7 +57,7 @@ demo = swap(demo, "<script>document.documentElement.classList.add('js');</script
             "<script>window.DEMO_EDIT = location.hash === '#bearbeiten' && (function () { try { return sessionStorage.getItem('erber-demo') === '1'; } catch (e) { return false; } })();"
             " if (!window.DEMO_EDIT) document.documentElement.classList.add('js');</script>")
 demo = swap(demo, "<script>\n%s</script>" % js, "<script>\nif (!window.DEMO_EDIT) {\n%s\n}\n</script>" % js)
-demo = swap(demo, "</style>", read("admin/editor.css") + "\n.draft-note button { margin-left: 12px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 4px; background: #c0452a; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }\n.draft-note button:hover { background: #fff; color: #2b2d2c; }\n</style>", 1)
+demo = swap(demo, "</style>", read("admin/editor.css") + "\n/* In der Ansicht keine Bearbeitungsrahmen */\nhtml.js img[data-edit-img] { outline: 0; cursor: auto; filter: none; }\n.draft-note button { margin-left: 12px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 4px; background: #c0452a; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }\n.draft-note button:hover { background: #fff; color: #2b2d2c; }\n</style>", 1)
 note = re.search(r'<aside class="draft-note".*?</aside>', demo, re.S).group(0)
 demo = swap(demo, note, '<aside class="draft-note" aria-label="Demo-Hinweis">\n  <strong>Demo Kundenzugang.</strong> So ändert der Kunde Texte und Bilder selbst.'
             ' <button type="button" data-demo-login>Bearbeiten</button>\n</aside>')
